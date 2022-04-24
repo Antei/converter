@@ -4,7 +4,7 @@ layout = [
     [sg.Input(key='-INPUT-'),
      sg.DropDown(['километры в мили', 'килограммы в фунты', 'секунды в минуты'], key='-UNITS-', default_value='километры в мили', readonly=True)],
     [sg.Button('Конвертировать', key='-CONVERT-'), sg.Text('Знаков после запятой:'), sg.Spin([0, 1, 2, 3, 4, 5], key='-LENGTH-',initial_value=5)],
-    [sg.Text('Вывод:', key='-OUTPUT-')]
+    [sg.Text('Результат:', key='-OUTPUT-')]
 ]
 
 window = sg.Window('Simple Converter', layout)
@@ -29,6 +29,8 @@ while True:
                     output = round(float(input_value) / 60, values['-LENGTH-'])
                     output_line = f'{input_value} в секундах это {output} в минутах.'
 
-            window['-OUTPUT-'].update(f'Вывод: {output_line}')
+            window['-OUTPUT-'].update(f'Результат: {output_line}')
+        else:
+            window['-OUTPUT-'].update(f'Пожалуйста введите цифры')
 
 window.close()
