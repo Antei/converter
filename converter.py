@@ -3,8 +3,8 @@ import PySimpleGUI as sg
 layout = [
     [sg.Input(key='-INPUT-'),
      sg.DropDown(['километры в мили', 'килограммы в фунты', 'секунды в минуты'], key='-UNITS-')],
-    [sg.Button('Конвертировать', key='-CONVERT-')],
-    [sg.Text('Результат конвертации', key='-OUTPUT-')]
+    [sg.Button('Конвертировать', key='-CONVERT-'), sg.Text('Знаков после запятой:'), sg.Spin([1, 2, 3, 4, 5], key='-LENGTH-')],
+    [sg.Text('Вывод:', key='-OUTPUT-')]
 ]
 
 window = sg.Window('Simple Converter', layout)
@@ -20,8 +20,8 @@ while True:
         if input_value.isnumeric():
             match values['-UNITS-']:
                 case 'километры в мили':
-                    output = float(input_value) * 0.621371
+                    output = round(float(input_value) * 0.621371, values['-LENGTH-'])
                     output_line = f'{input_value} в км равно {output} в милях.'
-            window['-OUTPUT-'].update(output_line)
+            window['-OUTPUT-'].update(f'Вывод: {output_line}')
 
 window.close()
